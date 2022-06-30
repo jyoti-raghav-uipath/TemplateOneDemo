@@ -1,0 +1,15 @@
+# Copy this content for the setup
+im_servicenow:
+  outputs:
+
+    sqlserver:
+      type: sqlserver
+      driver: 'ODBC Driver 17 for SQL Server'
+      server:
+      port: 1433
+      user:
+      password:
+      database:
+      schema:
+
+  target: sqlserver
