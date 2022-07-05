@@ -1,0 +1,25 @@
+version: 2
+
+# Entities tests cover that Cases_base matches the defined data model.
+models:
+  - name: Cases_base
+    columns:
+      - name: '"Case_ID"'
+        # The ID should be not null, unique, and exist in the output.
+        tests:
+          - not_null
+          - unique
+          - pm_utils.exists
+      - name: '"Case"'
+        tests:
+          - pm_utils.exists
+      - name: '"Case_status"'
+        tests:
+          - pm_utils.exists
+      - name: '"Case_type"'
+        tests:
+          - pm_utils.exists
+      - name: '"Case_value"'
+        tests:
+          - pm_utils.exists
+          - pm_utils.type_double
