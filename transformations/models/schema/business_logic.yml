@@ -1,0 +1,117 @@
+version: 2
+
+# The business_logic template contains tests necessary to match the relevant models with the data model for TemplateOne 2021.4.0:
+# https://docs.uipath.com/process-mining/docs/input-tables-of-templateone-10
+
+# To use these tests, the pm-utils package is necessary. For more information 
+# regarding this package, see https://github.com/UiPath/ProcessMining-pm-utils
+# These tests are compatible with pm-utils v0.2.2
+
+# These tests are compatible with Connector & App Framework 0.8
+
+# If the business_logic folder contains more models than already defined in these tests, additional tests should be defined at the bottom.
+
+models:
+  - name: Tags
+    tests:
+      - pm_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - 'Case_ID'
+            - 'Tag'
+    columns:
+      - name: '"Case_ID"'
+        tests:
+          - pm_utils.exists
+          - not_null
+      - name: '"Tag"'
+        tests:
+          - pm_utils.exists
+          - not_null
+
+  - name: Due_dates
+    tests:
+      - pm_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - 'Due_date'
+            - 'Event_ID'
+    columns:
+      - name: '"Due_date"'
+        tests:
+          - pm_utils.exists
+          - not_null
+      - name: '"Event_ID"'
+        tests:
+          - pm_utils.exists
+          - not_null
+      - name: '"Actual_date"'
+        tests:
+          - pm_utils.exists
+          - not_null
+          - pm_utils.type_timestamp
+      - name: '"Expected_date"'
+        tests:
+          - pm_utils.exists
+          - not_null
+          - pm_utils.type_timestamp
+
+  - name: Cases
+    tests:
+      - pm_utils.equal_rowcount:
+          compare_model: 'Cases_base'
+    columns:
+      - name: '"Case_ID"'
+        tests:
+          - not_null
+          - unique
+      - name: '"Case_start"'
+        tests:
+          - not_null
+      - name: '"Event_count"'
+        tests:
+          - not_null
+          - pm_utils.not_negative
+      - name: '"Throughput_time"'
+        tests:
+          - not_null
+          - pm_utils.not_negative
+      - name: '"Case_has_tag"'
+        tests:
+          - not_null
+      - name: '"Variant"'
+        tests:
+          - not_null
+
+  - name: Event_log
+    tests:
+      - pm_utils.equal_rowcount:
+          compare_model: 'Event_log_base'
+    columns:
+      - name: '"Event_ID"'
+        tests:
+          - not_null
+          - unique
+      - name: '"Case_ID"'
+        tests:
+          - not_null
+      - name: '"Activity"'
+        tests:
+          - not_null
+      - name: '"Event_end"'
+        tests:
+          - not_null
+      - name: '"Event_order"'
+        tests:
+          - not_null
+          - unique
+      - name: '"Event_processing_time"'
+        tests:
+          - pm_utils.not_negative
+      - name: '"Event_throughput_time"'
+        tests:
+          - not_null
+          - pm_utils.not_negative
+      - name: '"Manual_event_processing_time"'
+        tests:
+          - pm_utils.not_negative
+
+# Insert tests for other models below.
