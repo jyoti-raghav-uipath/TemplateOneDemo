@@ -1,0 +1,69 @@
+version: 2
+
+# The template contains tests necessary to match the relevant models with the data model for TemplateOne.
+
+# To use these tests, the pm-utils package is necessary. For more information 
+# regarding this package, see https://github.com/UiPath/ProcessMining-pm-utils
+# These tests are compatible with pm-utils v0.2.2
+
+# These tests are compatible with Connector & App Framework 0.8
+
+# If the event_logs folder contains more models than already defined in these tests, additional tests should be defined at the bottom.
+
+models:
+  - name: Event_log_base
+    tests:
+      - pm_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - 'Case_ID'
+            - 'Activity'
+            - 'Event_end'
+          severity: 'warn'
+    columns:
+      - name: '"Case_ID"'
+        tests:
+          - pm_utils.exists
+          - not_null
+      - name: '"Activity"'
+        tests:
+          - pm_utils.exists
+          - not_null
+      - name: '"Event_end"'
+        tests:
+          - pm_utils.exists
+          - not_null
+          - pm_utils.type_timestamp
+      - name: '"Activity_order"'
+        tests:
+          - pm_utils.exists
+          - pm_utils.type_integer
+      - name: '"Automated"'
+        tests:
+          - pm_utils.exists
+          - pm_utils.type_boolean
+      - name: '"Event_cost"'
+        tests:
+          - pm_utils.exists
+          - pm_utils.type_double
+      - name: '"Event_detail"'
+        tests:
+          - pm_utils.exists
+      - name: '"Event_ID"'
+        tests:
+          - pm_utils.exists
+      - name: '"Event_processing_time"'
+        tests:
+          - pm_utils.exists
+          - pm_utils.type_integer
+      - name: '"Event_start"'
+        tests:
+          - pm_utils.exists
+          - pm_utils.type_timestamp
+      - name: '"Team"'
+        tests:
+          - pm_utils.exists
+      - name: '"User"'
+        tests:
+          - pm_utils.exists
+
+# Insert tests for other models below.
