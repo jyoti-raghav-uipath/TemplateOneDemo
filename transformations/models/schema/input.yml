@@ -1,0 +1,59 @@
+version: 2
+
+# Input tests cover the input tables, where we check whether the IDs are not null and unique.
+models:
+  - name: Cmdb_ci_input
+    columns:
+      - name: '"Configuration_item"'
+        tests:
+          - not_null
+      - name: '"Class_name"'
+        tests:
+          - not_null
+  - name: Incident_input
+    columns:
+      - name: '"Case_ID"'
+        tests:
+          - not_null
+
+  - name: Task_sla_input
+    columns:
+      - name: '"Case_ID"'
+        tests:
+          - not_null
+      - name: '"Due_date"'
+        tests:
+          - not_null
+      - name: '"Planned_end_time"'
+        tests:
+          - pm_utils.type_timestamp
+          - not_null
+  - name: Contract_sla_input
+    columns:
+      - name: '"Due_date"'
+        tests:
+          - not_null
+      - name: '"Duration"'
+        tests:
+          - not_null
+          - pm_utils.type_double
+  - name: Metric_definition_input
+    columns:
+      - name: '"Sys_id"'
+        tests:
+          - not_null
+      - name: '"Name"'
+        tests:
+          - not_null
+  - name: Metric_instance_input
+    columns:
+      - name: '"Sys_id"'
+        tests:
+          - not_null
+      - name: '"Definition"'
+        tests:
+          - not_null
+      - name: '"Sys_created_on"'
+        tests:
+          - not_null
+          - pm_utils.type_timestamp
